@@ -31,8 +31,12 @@ init with {:
 scan with {: return lexer.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
+terminal 			ELSE, IF, INT, RETURN, VOID, WHILE, DIV, LOWER, LOWER_EQUAL;
+terminal 			BIGGER, BIGGER_EQUAL, EQUAL, NOT_EQUAL, ASSIGN, COLON, LPARENR;
+terminal			RPARENR, LPARENS, RPARENS, LBRACE, RBRACE;  
 terminal            SEMI, PLUS, MINUS, UMINUS, TIMES, LPAREN, RPAREN;
 terminal Integer    NUMBER;        // our scanner provides numbers as integers
+terminal      		ID;
 
 /* Non terminals */
 non terminal            expr_list;
