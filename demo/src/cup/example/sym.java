@@ -8,11 +8,11 @@ package cup.example;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
-  public static final int TIMES = 27;
+  public static final int TIMES = 26;
   public static final int BIGGER = 11;
   public static final int ELSE = 2;
   public static final int PLUS = 24;
-  public static final int RPAREN = 29;
+  public static final int RPAREN = 28;
   public static final int RBRACE = 22;
   public static final int INT = 4;
   public static final int EQUAL = 13;
@@ -23,13 +23,13 @@ public interface sym {
   public static final int RETURN = 5;
   public static final int NOT_EQUAL = 14;
   public static final int IF = 3;
-  public static final int LPAREN = 28;
+  public static final int LPAREN = 27;
   public static final int LBRACE = 21;
   public static final int COLON = 16;
-  public static final int ID = 31;
+  public static final int ID = 30;
   public static final int LOWER = 9;
   public static final int LPARENS = 19;
-  public static final int NUMBER = 30;
+  public static final int NUMBER = 29;
   public static final int LPARENR = 17;
   public static final int EOF = 0;
   public static final int DIV = 8;
@@ -38,7 +38,6 @@ public interface sym {
   public static final int ASSIGN = 15;
   public static final int VOID = 6;
   public static final int LOWER_EQUAL = 10;
-  public static final int UMINUS = 26;
   public static final int BIGGER_EQUAL = 12;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -67,7 +66,6 @@ public interface sym {
   "SEMI",
   "PLUS",
   "MINUS",
-  "UMINUS",
   "TIMES",
   "LPAREN",
   "RPAREN",
