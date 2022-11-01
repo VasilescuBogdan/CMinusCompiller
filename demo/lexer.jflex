@@ -54,7 +54,7 @@ import java.io.InputStreamReader;
     }
 %}
 
-Whitespace = [ \t\n]
+Whitespace = [ \t\n\r]
 Number     = [0-9]+
 Id		   = [a-zA-Z][a-zA-Z0-9_]*
 

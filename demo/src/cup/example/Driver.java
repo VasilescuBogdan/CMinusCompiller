@@ -21,8 +21,8 @@ class Driver {
 		    e.printStackTrace();
 		  } 
 		  Lexer lexer = new Lexer(symbolFactory,fis);
-		  int currentToken = 0;
-		  while ((currentToken = lexer.next_token().sym) != sym.EOF) {
+		  Symbol currentToken;
+		  while ((currentToken = lexer.next_token()).sym != sym.EOF) {
 			  System.out.println(currentToken);
 		  }
 	}
