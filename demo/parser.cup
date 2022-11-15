@@ -52,31 +52,105 @@ precedence left TIMES, DIV;
 /* The grammar rules */
 
 program ::= declaration_list;
-declaration_list ::= declaration_list declaration | declaration;
-declaration ::= var_declaration | fun_declaration;
-var_declaration ::= type_specifier ID SEMI | type_specifier ID LPARENR NUMBER RPARENR ;
-type_specifier ::= INT | VOID ;
+
+declaration_list ::= declaration_list declaration 
+				   | declaration
+				   ;
+
+declaration ::= var_declaration 
+			  | fun_declaration
+			  ;
+
+var_declaration ::= type_specifier ID SEMI 
+			      | type_specifier ID LPARENR NUMBER RPARENR SEMI
+			      ;
+
+type_specifier ::= INT 
+				 | VOID 
+				 ;
+				 
 fun_declaration ::= type_specifier ID LPARENR params RPARENR compound_stmt;
-params ::= param_list | VOID;
-param_list ::= param_list COLON param | param;
-param ::= type_specifier ID | type_specifier ID LPARENR RPARENR;
+
+params ::= param_list 
+		 | VOID
+		 ;
+		 
+param_list ::= param_list COLON param 
+			 | param;
+
+param ::= type_specifier ID 
+		| type_specifier ID LPARENR RPARENR;
+
 compound_stmt ::= LBRACE local_declarations statement_list RBRACE;
-local_declarations ::= local_declarations var_declaration | ;
-statement_list ::= statement_list statement | ; 	     
-statement ::= expression_stmt | compound_stmt | selection_stmt | iteration_stmt | return_stmt;
-expression_stmt ::= expression SEMI | SEMI;
-selection_stmt ::= IF LPARENR expression RPARENR  statement | IF LPARENR expression RPARENR statement ELSE statement;
+
+local_declarations ::= local_declarations var_declaration 
+					 | ;
+
+statement_list ::= statement_list statement 
+				 | ; 	     
+
+statement ::= expression_stmt 
+			| compound_stmt 
+			| selection_stmt 
+			| iteration_stmt 
+			| return_stmt;
+
+expression_stmt ::= expression SEMI 
+				  | SEMI;
+
+selection_stmt ::= IF LPARENR expression RPARENR  statement 
+				 | IF LPARENR expression RPARENR statement ELSE statement;
+
 iteration_stmt ::= WHILE LPARENR expression RPARENR statement;
-return_stmt ::= RETURN SEMI | RETURN expression SEMI;
-expression ::= var ASSIGN expression | simple_expression;
-var ::= ID | ID LPARENS expression RPARENS;
-simple_expression ::= additive_expression relop additive_expression | additive_expression;
-relop ::= LOWER_EQUAL | LOWER | BIGGER | BIGGER_EQUAL | EQUAL | NOT_EQUAL;
-additive_expression ::= additive_expression addop term | term;
-addop ::= PLUS | MINUS;
-term ::= term mulop factor | factor;
-mulop ::= TIMES | DIV;
-factor ::= LPARENR expression RPARENR | var | call | NUMBER;
+
+return_stmt ::= RETURN SEMI 
+			  | RETURN expression SEMI;
+
+expression ::= var ASSIGN expression 
+			 | simple_expression;
+
+var ::= ID 
+	  | ID LPARENS expression RPARENS;
+
+simple_expression ::= additive_expression relop additive_expression 
+					| additive_expression;
+
+relop ::= LOWER_EQUAL 
+		| LOWER 
+		| BIGGER 
+		| BIGGER_EQUAL 
+		| EQUAL 
+		| NOT_EQUAL;
+
+additive_expression ::= additive_expression addop term 
+					  | term;
+
+addop ::= PLUS 
+		| MINUS;
+
+term ::= term mulop factor 
+	   | factor;
+
+mulop ::= TIMES 
+		| DIV;
+
+factor ::= LPARENR expression RPARENR 
+		 | var 
+		 | call 
+		 | NUMBER;
+
 call ::= ID LPARENR args RPARENR;
-args ::= arg_list | ;
-arg_list ::= arg_list COLON expression | expression;
+
+args ::= arg_list 
+	   | ;
+
+arg_list ::= arg_list COLON expression 
+		   | expression;
+
+
+
+
+
+
+
+
