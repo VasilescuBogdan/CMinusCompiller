@@ -46,7 +46,7 @@ non terminal expression_stmt, selection_stmt, iteration_stmt, return_stmt, expre
 non terminal additive_expression, relop, addop, term, mulop, factor, call, args, arg_list; 
 
 /* Precedences */
-precedence nonassoc ELSE;	// Inserted by Eclipse plugin
+//precedence nonassoc ELSE;
 precedence left PLUS, MINUS;
 precedence left TIMES, DIV;
 
@@ -79,7 +79,7 @@ params ::= param_list	{:	System.out.println("PARAM LIST\n");	:}
 		 ;
 		 
 param_list ::= param_list COLON param 	{::}
-			 | param	{: System.out.println("PARAMETER");:}
+			 | param	{: System.out.println("PARAMETER\n");:}
 			 ;
 
 param ::= type_specifier ID 	{::}

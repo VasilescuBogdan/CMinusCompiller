@@ -482,7 +482,7 @@ System.out.println( "declaration_list -> declaration\n");
             {
               Object RESULT =null;
 		//@@CUPDBG15
- System.out.println("PARAMETER");
+ System.out.println("PARAMETER\n");
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("param_list",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
