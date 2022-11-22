@@ -32,9 +32,9 @@ scan with {: return lexer.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
 terminal 			ELSE, IF, INT, RETURN, VOID, WHILE, DIV, LOWER, LOWER_EQUAL;
-terminal 			BIGGER, BIGGER_EQUAL, EQUAL, NOT_EQUAL, ASSIGN, COLON, LPARENR;
-terminal			RPARENR, LPARENS, RPARENS, LBRACE, RBRACE;  
-terminal            SEMI, PLUS, MINUS, TIMES, LPAREN, RPAREN;
+terminal 			BIGGER, BIGGER_EQUAL, EQUAL, NOT_EQUAL, ASSIGN, COLON;
+terminal			LPARENR, RPARENR, LPARENS, RPARENS, LBRACE, RBRACE;  
+terminal            SEMI, PLUS, MINUS, TIMES;
 terminal Integer    NUMBER;        // our scanner provides numbers as integers
 terminal      		ID;
 
@@ -46,106 +46,132 @@ non terminal expression_stmt, selection_stmt, iteration_stmt, return_stmt, expre
 non terminal additive_expression, relop, addop, term, mulop, factor, call, args, arg_list; 
 
 /* Precedences */
+precedence nonassoc ELSE;	// Inserted by Eclipse plugin
 precedence left PLUS, MINUS;
 precedence left TIMES, DIV;
 
 /* The grammar rules */
 
-program ::= declaration_list;
+program ::= declaration_list	{: System.out.println("program-> Declaration List \n"); :}
+		  ;
 
-declaration_list ::= declaration_list declaration 
-				   | declaration
+declaration_list ::= declaration_list declaration 	{:System.out.println( "declaration_list -> Declaration List Declaration \n");:}
+				   | declaration	{:System.out.println( "declaration_list -> declaration\n");:}
 				   ;
 
-declaration ::= var_declaration 
-			  | fun_declaration
+declaration ::= var_declaration		{: :} 
+			  | fun_declaration		{: System.out.println( "declaration -> fun_declaration\n"); :}
 			  ;
 
-var_declaration ::= type_specifier ID SEMI 
-			      | type_specifier ID LPARENR NUMBER RPARENR SEMI
+var_declaration ::= type_specifier ID SEMI 		{::}
+			      | type_specifier ID LPARENR NUMBER RPARENR SEMI {::}
 			      ;
 
-type_specifier ::= INT 
-				 | VOID 
+type_specifier ::= INT 		{::}
+				 | VOID     {::}
 				 ;
 				 
-fun_declaration ::= type_specifier ID LPARENR params RPARENR compound_stmt;
+fun_declaration ::= type_specifier ID LPARENR params RPARENR compound_stmt	{::}
+				  ;
 
-params ::= param_list 
-		 | VOID
+params ::= param_list	{:	System.out.println("PARAM LIST\n");	:} 
+		 | VOID			
 		 ;
 		 
-param_list ::= param_list COLON param 
-			 | param;
+param_list ::= param_list COLON param 	{::}
+			 | param	{: System.out.println("PARAMETER");:}
+			 ;
 
-param ::= type_specifier ID 
-		| type_specifier ID LPARENR RPARENR;
+param ::= type_specifier ID 	{::}
+		| type_specifier ID LPARENR RPARENR		{::}
+		;
 
-compound_stmt ::= LBRACE local_declarations statement_list RBRACE;
+compound_stmt ::= LBRACE local_declarations statement_list RBRACE		{::}
+			    ;
 
-local_declarations ::= local_declarations var_declaration 
-					 | ;
+local_declarations ::= local_declarations var_declaration		{::} 
+					 | 
+					 ;
 
-statement_list ::= statement_list statement 
-				 | ; 	     
+statement_list ::= statement_list statement		{::} 
+				 | 
+				 ; 	     
 
-statement ::= expression_stmt 
-			| compound_stmt 
-			| selection_stmt 
-			| iteration_stmt 
-			| return_stmt;
+statement ::= expression_stmt	{::} 
+			| compound_stmt 	{::}
+			| selection_stmt 	{::}
+			| iteration_stmt 	{::}
+			| return_stmt       {::}
+			;		
 
-expression_stmt ::= expression SEMI 
-				  | SEMI;
+expression_stmt ::= expression SEMI		{::} 
+				  | SEMI				{::}
+				  ;
 
-selection_stmt ::= IF LPARENR expression RPARENR  statement 
-				 | IF LPARENR expression RPARENR statement ELSE statement;
 
-iteration_stmt ::= WHILE LPARENR expression RPARENR statement;
+selection_stmt ::= IF LPARENR expression RPARENR statement		{::} 
+				 | IF LPARENR expression RPARENR statement ELSE statement		{::}
+				 ;
 
-return_stmt ::= RETURN SEMI 
-			  | RETURN expression SEMI;
+iteration_stmt ::= WHILE LPARENR expression RPARENR statement		{::}
+				 ;
 
-expression ::= var ASSIGN expression 
-			 | simple_expression;
+return_stmt ::= RETURN SEMI 	{::}
+			  | RETURN expression SEMI		{::}
+			  ;
 
-var ::= ID 
-	  | ID LPARENS expression RPARENS;
+expression ::= var ASSIGN expression 	{::}
+			 | simple_expression	{::}
+			 ;
 
-simple_expression ::= additive_expression relop additive_expression 
-					| additive_expression;
+var ::= ID 		{::}
+	  | ID LPARENS expression RPARENS	{::}
+	  ;
 
-relop ::= LOWER_EQUAL 
-		| LOWER 
-		| BIGGER 
-		| BIGGER_EQUAL 
-		| EQUAL 
-		| NOT_EQUAL;
+simple_expression ::= additive_expression relop additive_expression		{::} 
+					| additive_expression		{::}
+					;
 
-additive_expression ::= additive_expression addop term 
-					  | term;
+relop ::= LOWER_EQUAL	{::} 
+		| LOWER 	{::}
+		| BIGGER 	{::}
+		| BIGGER_EQUAL 		{::}
+		| EQUAL 	{::}
+		| NOT_EQUAL		{::}
+		;
 
-addop ::= PLUS 
-		| MINUS;
+additive_expression ::= additive_expression addop term		{::} 
+					  | term	{::}
+					  ;
 
-term ::= term mulop factor 
-	   | factor;
+addop ::= PLUS 		{::}
+		| MINUS		{::}
+		;
 
-mulop ::= TIMES 
-		| DIV;
+term ::= term mulop factor	{::} 
+	   | factor		{::}
+	   ;
 
-factor ::= LPARENR expression RPARENR 
-		 | var 
-		 | call 
-		 | NUMBER;
+mulop ::= TIMES		{::} 
+		| DIV		{::}
+		;
 
-call ::= ID LPARENR args RPARENR;
+factor ::= LPARENR expression RPARENR	{::} 
+		 | var 		{::}
+		 | call 	{::}
+		 | NUMBER	{::}
+		 ;
 
-args ::= arg_list 
-	   | ;
+call ::= ID LPARENR args RPARENR	{::}
+	   ;
 
-arg_list ::= arg_list COLON expression 
-		   | expression;
+args ::= arg_list	{::} 
+	   | 			{::}
+	   ;
+
+arg_list ::= arg_list COLON expression		{::} 
+		   | expression						{::}
+		   ;
 
 
 

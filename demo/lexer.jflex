@@ -73,6 +73,9 @@ CommentContent = ( [^*] | \*+[^*/] )*
 
 <YYINITIAL> {
 
+  {Whitespace} {                              }
+  {Comment}    { 							  }
+
   /* keywords */
   "else"       { return symbolFactory.newSymbol("ELSE", ELSE); }
   "if"         { return symbolFactory.newSymbol("IF", IF); }
@@ -107,9 +110,7 @@ CommentContent = ( [^*] | \*+[^*/] )*
   {Number}     { return symbolFactory.newSymbol("NUMBER", NUMBER, Integer.parseInt(yytext())); }
   {Id}		   { return symbolFactory.newSymbol("ID", ID, yytext()); }
   
-  {Whitespace} {                              }
   
-  {Comment}    { 							  }
 }
 
 
