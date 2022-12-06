@@ -1,6 +1,5 @@
 /*
-   Simple +/-/* expression language; 
-   parser evaluates constant expressions on the fly
+   C- language;
 */
 
 package cup.example;
@@ -46,131 +45,131 @@ non terminal expression_stmt, selection_stmt, iteration_stmt, return_stmt, expre
 non terminal additive_expression, relop, addop, term, mulop, factor, call, args, arg_list; 
 
 /* Precedences */
-//precedence nonassoc ELSE;
+precedence nonassoc ELSE;
 precedence left PLUS, MINUS;
 precedence left TIMES, DIV;
 
 /* The grammar rules */
 
-program ::= declaration_list	{: System.out.println("program-> Declaration List \n"); :}
+program ::= declaration_list	{: System.out.println("program-> declaration_list \n"); :}
 		  ;
 
-declaration_list ::= declaration_list declaration 	{:System.out.println( "declaration_list -> Declaration List Declaration \n");:}
-				   | declaration	{:System.out.println( "declaration_list -> declaration\n");:}
+declaration_list ::= declaration_list declaration 	{: System.out.println( "declaration_list -> declaration_list declaration \n");:}
+				   | declaration	{: System.out.println( "declaration_list -> declaration \n");:}
 				   ;
 
-declaration ::= var_declaration		{: :} 
-			  | fun_declaration		{: System.out.println( "declaration -> fun_declaration\n"); :}
+declaration ::= var_declaration		{: System.out.println( "declaration -> var_declaration \n");:} 
+			  | fun_declaration		{: System.out.println( "declaration -> fun_declaration \n");:}
 			  ;
 
-var_declaration ::= type_specifier ID SEMI 		{::}
-			      | type_specifier ID LPARENR NUMBER RPARENR SEMI {::}
+var_declaration ::= type_specifier ID SEMI 		{: System.out.println("var_declaration -> type_specifier id; \n");:}
+			      | type_specifier ID LPARENR NUMBER RPARENR SEMI {: System.out.println("var_declaration -> type_specifier id (number); \n");:}
 			      ;
 
-type_specifier ::= INT 		{::}
-				 | VOID     {::}
+type_specifier ::= INT 		{: System.out.println("type_specifier -> int \n"); :}
+				 | VOID     {: System.out.println("type_specifier -> void \n"); :}
 				 ;
 				 
-fun_declaration ::= type_specifier ID LPARENR params RPARENR compound_stmt	{::}
+fun_declaration ::= type_specifier ID LPARENR params RPARENR compound_stmt	{: System.out.println("fun_declaration -> type_specifier id [params] compound_stmt \n"); :}
 				  ;
 
-params ::= param_list	{:	System.out.println("PARAM LIST\n");	:} 
-		 | VOID			
+params ::= param_list	{:	System.out.println("params -> param_list \n");	:} 
+		 | VOID			{: System.out.println("params -> void \n"); :}
 		 ;
 		 
-param_list ::= param_list COLON param 	{::}
-			 | param	{: System.out.println("PARAMETER\n");:}
+param_list ::= param_list COLON param 	{: System.out.println("param_list -> param_list, param \n"); :}
+			 | param	{: System.out.println("param_list -> param \n");:}
 			 ;
 
-param ::= type_specifier ID 	{::}
-		| type_specifier ID LPARENR RPARENR		{::}
+param ::= type_specifier ID 	{: System.out.println("param -> type_specifier id \n"); :}
+		| type_specifier ID LPARENR RPARENR		{: System.out.println("param -> type_specifier id () \n"); :}
 		;
 
-compound_stmt ::= LBRACE local_declarations statement_list RBRACE		{::}
+compound_stmt ::= LBRACE local_declarations statement_list RBRACE		{: System.out.println("compound_stmt -> {local_declaration statement_list} \n"); :}
 			    ;
 
-local_declarations ::= local_declarations var_declaration		{::} 
-					 | 
+local_declarations ::= local_declarations var_declaration		{: System.out.println("local_declarations -> local_declarations var_declaration \n"); :} 
+					 | {: System.out.println("local_declarations ->  \n"); :}
 					 ;
 
-statement_list ::= statement_list statement		{::} 
-				 | 
+statement_list ::= statement_list statement		{: System.out.println("statement_list -> statement_list statement \n"); :} 
+				 | {: System.out.println("statement_list -> \n"); :}
 				 ; 	     
 
-statement ::= expression_stmt	{::} 
-			| compound_stmt 	{::}
-			| selection_stmt 	{::}
-			| iteration_stmt 	{::}
-			| return_stmt       {::}
+statement ::= expression_stmt	{: System.out.println("statement -> expression_stmt \n"); :} 
+			| compound_stmt 	{: System.out.println("statement -> compound_stmt \n"); :}
+			| selection_stmt 	{: System.out.println("statement -> selection_stmt \n"); :}
+			| iteration_stmt 	{: System.out.println("statement -> iteration_stmt \n");:}
+			| return_stmt       {: System.out.println("statement -> return_stmt \n"); :}
 			;		
 
-expression_stmt ::= expression SEMI		{::} 
-				  | SEMI				{::}
+expression_stmt ::= expression SEMI		{: System.out.println("expression_stmt -> expression; \n"); :} 
+				  | SEMI				{: System.out.println("expression_stmt -> ; \n"); :}
 				  ;
 
 
-selection_stmt ::= IF LPARENR expression RPARENR statement		{::} 
-				 | IF LPARENR expression RPARENR statement ELSE statement		{::}
+selection_stmt ::= IF LPARENR expression RPARENR statement		{: System.out.println("selection_stmt -> if (expression) statement \n"); :} 
+				 | IF LPARENR expression RPARENR statement ELSE statement		{: System.out.println("selection_stmt -> if (expression) statement else statement \n"); :}
 				 ;
 
-iteration_stmt ::= WHILE LPARENR expression RPARENR statement		{::}
+iteration_stmt ::= WHILE LPARENR expression RPARENR statement		{: System.out.println("iteration_stmt -> while (expression) statement \n"); :}
 				 ;
 
-return_stmt ::= RETURN SEMI 	{::}
-			  | RETURN expression SEMI		{::}
+return_stmt ::= RETURN SEMI 	{: System.out.println("return_stmt -> return; \n");:}
+			  | RETURN expression SEMI		{: System.out.println("return_stmt -> return expression; \n"); :}
 			  ;
 
-expression ::= var ASSIGN expression 	{::}
-			 | simple_expression	{::}
+expression ::= var ASSIGN expression 	{: System.out.println("expression -> var = expression \n"); :}
+			 | simple_expression	{: System.out.println("expression -> simple_expression \n"); :}
 			 ;
 
-var ::= ID 		{::}
-	  | ID LPARENS expression RPARENS	{::}
+var ::= ID 		{: System.out.println("var -> id \n"); :}
+	  | ID LPARENS expression RPARENS	{: System.out.println("var -> id [expression] \n"); :}
 	  ;
 
-simple_expression ::= additive_expression relop additive_expression		{::} 
-					| additive_expression		{::}
+simple_expression ::= additive_expression relop additive_expression		{: System.out.println("simple_expression -> additive_expression relop additive_expression \n"); :} 
+					| additive_expression		{: System.out.println("simple_expression -> additive_expression \n"); :}
 					;
 
-relop ::= LOWER_EQUAL	{::} 
-		| LOWER 	{::}
-		| BIGGER 	{::}
-		| BIGGER_EQUAL 		{::}
-		| EQUAL 	{::}
-		| NOT_EQUAL		{::}
+relop ::= LOWER_EQUAL	{: System.out.println("relop -> <= \n"); :} 
+		| LOWER 	{: System.out.println("relop -> < \n"); :}
+		| BIGGER 	{: System.out.println("relop -> > \n"); :}
+		| BIGGER_EQUAL 		{: System.out.println("relop -> >= \n"); :}
+		| EQUAL 	{: System.out.println("relop -> == \n"); :}
+		| NOT_EQUAL		{: System.out.println("relop -> != \n"); :}
 		;
 
-additive_expression ::= additive_expression addop term		{::} 
-					  | term	{::}
+additive_expression ::= additive_expression addop term		{: System.out.println("additive_expression -> additive_expression addop term \n"); :} 
+					  | term	{: System.out.println("additive_expression -> term \n"); :}
 					  ;
 
-addop ::= PLUS 		{::}
-		| MINUS		{::}
+addop ::= PLUS 		{: System.out.println("addop -> + \n"); :}
+		| MINUS		{: System.out.println("addop -> - \n"); :}
 		;
 
-term ::= term mulop factor	{::} 
-	   | factor		{::}
+term ::= term mulop factor	{: System.out.println("term -> term mulop factor \n"); :} 
+	   | factor		{: System.out.println("term -> factor \n"); :}
 	   ;
 
-mulop ::= TIMES		{::} 
-		| DIV		{::}
+mulop ::= TIMES		{: System.out.println("mulop -> * \n"); :} 
+		| DIV		{: System.out.println("mulop -> / \n"); :}
 		;
 
-factor ::= LPARENR expression RPARENR	{::} 
-		 | var 		{::}
-		 | call 	{::}
-		 | NUMBER	{::}
+factor ::= LPARENR expression RPARENR	{: System.out.println("factor -> (expression) \n"); :} 
+		 | var 		{: System.out.println("factor -> var \n"); :}
+		 | call 	{: System.out.println("factor -> call \n");:}
+		 | NUMBER	{: System.out.println("factor -> number \n"); :}
 		 ;
 
-call ::= ID LPARENR args RPARENR	{::}
+call ::= ID LPARENR args RPARENR	{: System.out.println("call -> id (args) \n"); :}
 	   ;
 
-args ::= arg_list	{::} 
-	   | 			{::}
+args ::= arg_list	{: System.out.println("args -> arg_list \n");:} 
+	   | 			{: System.out.println("args ->  \n"); :}
 	   ;
 
-arg_list ::= arg_list COLON expression		{::} 
-		   | expression						{::}
+arg_list ::= arg_list COLON expression		{: System.out.println("arg_list -> arg_list, expression \n"); :} 
+		   | expression						{: System.out.println("arg_list -> expression \n"); :}
 		   ;
 
 
