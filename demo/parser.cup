@@ -101,9 +101,9 @@ declaration_list ::= declaration_list:dl declaration:d 	{:
 				   ;
 
 declaration ::= var_declaration:vd		{: System.out.println( "declaration -> var_declaration \n");
-											RESULT = TreeNode.createDeclaration(vd, true);:} 
+											RESULT = vd;:} 
 			  | fun_declaration:fd		{: System.out.println( "declaration -> fun_declaration \n");
-											RESULT = TreeNode.createDeclaration(fd, false);:}
+											RESULT = fd;:}
 			  ;
 
 var_declaration ::= type_specifier:ts ID:id_val SEMI 		{: System.out.println("var_declaration -> type_specifier id; \n");

@@ -415,7 +415,7 @@ class CUP$Parser$actions {
 		TreeNode vd = (TreeNode)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG6
  System.out.println( "declaration -> var_declaration \n");
-											RESULT = TreeNode.createDeclaration(vd, true);
+											RESULT = vd;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -429,7 +429,7 @@ class CUP$Parser$actions {
 		TreeNode fd = (TreeNode)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG7
  System.out.println( "declaration -> fun_declaration \n");
-											RESULT = TreeNode.createDeclaration(fd, false);
+											RESULT = fd;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("declaration",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
