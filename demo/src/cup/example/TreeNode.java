@@ -113,7 +113,7 @@ public class TreeNode {
 	}
 	
 	public static TreeNode createCompoundStmt(TreeNode localDeclarationsNode, TreeNode statementListNode) {
-		TreeNode createdNode = new TreeNode("ParamDeclaration");
+		TreeNode createdNode = new TreeNode("CompoundStmt");
 		createdNode.addChild(localDeclarationsNode);
 		createdNode.addChild(statementListNode);
 		return createdNode;
@@ -127,7 +127,7 @@ public class TreeNode {
 	}
 	
 	public static TreeNode createElseSelectionStmt(TreeNode expressionNode, TreeNode statementNode1, TreeNode statementNode2) {
-		TreeNode createdNode = new TreeNode("SimpleSelectionStmt");
+		TreeNode createdNode = new TreeNode("ElseSelectionStmt");
 		createdNode.addChild(expressionNode);
 		createdNode.addChild(statementNode1);
 		createdNode.addChild(statementNode2);
@@ -153,9 +153,8 @@ public class TreeNode {
 	}
 	
 	public static TreeNode createAssignExpression(TreeNode variableNode, TreeNode expressionNode ) {
-		TreeNode createdNode = new TreeNode("AssignExpression");
+		TreeNode createdNode = TreeNode.createOperator("=");
 		createdNode.addChild(variableNode);
-		createdNode.addChild(TreeNode.createOperator("="));
 		createdNode.addChild(expressionNode);
 		return createdNode;
 	}
@@ -177,17 +176,11 @@ public class TreeNode {
 	}
 	
 	public static TreeNode createSimpleExpression(TreeNode additiveExpression1, TreeNode relationalOperatorNode, TreeNode additiveExpression2) {
-		TreeNode createdNode = new TreeNode("SimpleExpression");
-		createdNode.addChild(additiveExpression1);
-		createdNode.addChild(relationalOperatorNode);
-		createdNode.addChild(additiveExpression2);
-		return createdNode;
+		relationalOperatorNode.addChild(additiveExpression1);
+		relationalOperatorNode.addChild(additiveExpression2);
+		return relationalOperatorNode;
 	}
 	
-	public static TreeNode createFactor(String factorValue) {
-		TreeNode createdNode = new TreeNode("Factor", factorValue);
-		return createdNode;
-	}
 	
 	public static TreeNode createCall(String callName, TreeNode argsNode) {
 		TreeNode createdNode = new TreeNode("Call", callName);

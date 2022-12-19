@@ -11,7 +11,7 @@ class Driver {
 	public static void main(String[] args) throws Exception {
 		
 		
-		/*ComplexSymbolFactory symbolFactory = new ComplexSymbolFactory();
+		  ComplexSymbolFactory symbolFactory = new ComplexSymbolFactory();
 		  File file = new File("input.txt");
 		  FileInputStream fis = null;
 		  try {
@@ -23,10 +23,12 @@ class Driver {
 		  Symbol currentToken;
 		  while ((currentToken = lexer.next_token()).sym != sym.EOF) {
 			  System.out.println(currentToken);
-		  } */
+		  } 
 		  
 		  Parser parser = new Parser();
 		  parser.parse();
+		  parser.getParseTree().print();
+		  
 	}
 	
 }

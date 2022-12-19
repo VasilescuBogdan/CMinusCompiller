@@ -536,7 +536,7 @@ class CUP$Parser$actions {
               TreeNode RESULT =null;
 		//@@CUPDBG14
  System.out.println("params -> void \n");
-							RESULT = TreeNode.createTypeSpecifier("VOID"); 
+							RESULT = null; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("params",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -648,7 +648,7 @@ class CUP$Parser$actions {
               TreeNode RESULT =null;
 		//@@CUPDBG21
  System.out.println("local_declarations ->  \n");
-							RESULT = null; 
+							RESULT = new TreeNode("localDeclararationsNode"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("local_declarations",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -677,7 +677,7 @@ class CUP$Parser$actions {
               TreeNode RESULT =null;
 		//@@CUPDBG23
  System.out.println("statement_list -> \n");
-						RESULT = null; 
+						RESULT = new TreeNode("statementListNode"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("statement_list",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1051,9 +1051,9 @@ class CUP$Parser$actions {
 		TreeNode t = (TreeNode)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG48
  System.out.println("additive_expression -> additive_expression addop term \n");
-																		ae.addChild(a);
-																		ae.addChild(t);
-																		RESULT = ae; 
+																		a.addChild(ae);
+																		a.addChild(t);
+																		RESULT = a; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("additive_expression",20, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1109,9 +1109,9 @@ class CUP$Parser$actions {
 		TreeNode f = (TreeNode)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG52
  System.out.println("term -> term mulop factor \n");
-										t.addChild(m);
-										t.addChild(f);
-									    RESULT = t; 
+										m.addChild(t);
+										m.addChild(f);
+									    RESULT = m; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("term",23, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1203,7 +1203,7 @@ class CUP$Parser$actions {
 		Integer number_val = (Integer)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG59
  System.out.println("factor -> number \n");
-						RESULT = TreeNode.createFactor("" + number_val); 
+						RESULT = new TreeNode("" + number_val); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("factor",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1245,7 +1245,7 @@ class CUP$Parser$actions {
               TreeNode RESULT =null;
 		//@@CUPDBG62
  System.out.println("args ->  \n");
-						RESULT = null; 
+						RESULT = new TreeNode("argsNode"); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("args",27, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

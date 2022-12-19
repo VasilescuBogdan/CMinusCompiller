@@ -125,7 +125,7 @@ fun_declaration ::= type_specifier:ts ID:id_val LPARENR params:p RPARENR compoun
 params ::= param_list:pl	{:	System.out.println("params -> param_list \n");
 							RESULT = TreeNode.createParams(pl);	:} 
 		 | VOID			{: System.out.println("params -> void \n");
-							RESULT = TreeNode.createTypeSpecifier("VOID"); :}
+							RESULT = null; :}
 		 ;
 		 
 param_list ::= param_list:pl COLON param:p 	{: System.out.println("param_list -> param_list, param \n");
@@ -149,14 +149,14 @@ local_declarations ::= local_declarations:ld var_declaration:vd		{: System.out.p
 																		ld.addChild(vd);
 																		RESULT = ld; :} 
 					 | {: System.out.println("local_declarations ->  \n");
-							RESULT = null; :}
+							RESULT = new TreeNode("localDeclararationsNode"); :}
 					 ;
 
 statement_list ::= statement_list:sl statement:s		{: System.out.println("statement_list -> statement_list statement \n");
 														 	sl.addChild(s);
 															RESULT = sl; :} 
 				 | {: System.out.println("statement_list -> \n");
-						RESULT = null; :}
+						RESULT = new TreeNode("statementListNode"); :}
 				 ; 	     
 
 statement ::= expression_stmt:es	{: System.out.println("statement -> expression_stmt \n");
@@ -227,9 +227,9 @@ relop ::= LOWER_EQUAL:le	{: System.out.println("relop -> <= \n");
 		;
 
 additive_expression ::= additive_expression:ae addop:a term:t		{: System.out.println("additive_expression -> additive_expression addop term \n");
-																		ae.addChild(a);
-																		ae.addChild(t);
-																		RESULT = ae; :} 
+																		a.addChild(ae);
+																		a.addChild(t);
+																		RESULT = a; :} 
 					  | term:t	{: System.out.println("additive_expression -> term \n");
 									RESULT = t; :}
 					  ;
@@ -241,9 +241,9 @@ addop ::= PLUS 		{: System.out.println("addop -> + \n");
 		;
 
 term ::= term:t mulop:m factor:f	{: System.out.println("term -> term mulop factor \n");
-										t.addChild(m);
-										t.addChild(f);
-									    RESULT = t; :} 
+										m.addChild(t);
+										m.addChild(f);
+									    RESULT = m; :} 
 	   | factor:f		{: System.out.println("term -> factor \n");
 						  RESULT = f; :}
 	   ;
@@ -261,7 +261,7 @@ factor ::= LPARENR expression:e RPARENR	{: System.out.println("factor -> (expres
 		 | call:c 	{: System.out.println("factor -> call \n");
 						RESULT = c; :}
 		 | NUMBER:number_val	{: System.out.println("factor -> number \n");
-						RESULT = TreeNode.createFactor("" + number_val); :}
+						RESULT = new TreeNode("" + number_val); :}
 		 ;
 
 call ::= ID:id_val LPARENR args:a RPARENR	{: System.out.println("call -> id (args) \n");
@@ -271,7 +271,7 @@ call ::= ID:id_val LPARENR args:a RPARENR	{: System.out.println("call -> id (arg
 args ::= arg_list:a	{: System.out.println("args -> arg_list \n");
 						RESULT = a; :} 
 	   | 			{: System.out.println("args ->  \n");
-						RESULT = null; :}
+						RESULT = new TreeNode("argsNode"); :}
 	   ;
 
 arg_list ::= arg_list:a COLON expression:e		{: System.out.println("arg_list -> arg_list, expression \n");
