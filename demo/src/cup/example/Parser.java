@@ -309,6 +309,7 @@ public class Parser extends java_cup.runtime.lr_parser {
 
   protected Lexer lexer;
   private MultipathTree parseTree = new MultipathTree();
+  private SymbolTable symbolTable = new SymbolTable();
 
   public MultipathTree getParseTree(){
 	return parseTree;
@@ -446,7 +447,7 @@ class CUP$Parser$actions {
 		Object id_val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		//@@CUPDBG8
  System.out.println("var_declaration -> type_specifier id; \n");
-																RESULT = TreeNode.createVariableDeclaration(ts, "" + id_val);	
+																RESULT = TreeNode.createVariableDeclaration(symbolTable, ts, "" + id_val);	
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("var_declaration",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -466,7 +467,7 @@ class CUP$Parser$actions {
 		Integer size = (Integer)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		//@@CUPDBG9
  System.out.println("var_declaration -> type_specifier id (number); \n");
-																					RESULT = TreeNode.createArrayVariableDeclaration(ts, "" + id_val, size);
+																					RESULT = TreeNode.createArrayVariableDeclaration(symbolTable, ts, "" + id_val, size);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("var_declaration",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1277,7 +1278,7 @@ class CUP$Parser$actions {
 		TreeNode e = (TreeNode)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG64
  System.out.println("arg_list -> expression \n");
-													RESULT = e; 
+													RESULT = TreeNode.createArgList(e); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("arg_list",28, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

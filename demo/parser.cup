@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 parser code {:
   protected Lexer lexer;
   private MultipathTree parseTree = new MultipathTree();
+  private SymbolTable symbolTable = new SymbolTable();
 
   public MultipathTree getParseTree(){
 	return parseTree;
@@ -107,9 +108,9 @@ declaration ::= var_declaration:vd		{: System.out.println( "declaration -> var_d
 			  ;
 
 var_declaration ::= type_specifier:ts ID:id_val SEMI 		{: System.out.println("var_declaration -> type_specifier id; \n");
-																RESULT = TreeNode.createVariableDeclaration(ts, "" + id_val);	:}
+																RESULT = TreeNode.createVariableDeclaration(symbolTable, ts, "" + id_val);	:}
 			      | type_specifier:ts ID:id_val LPARENR NUMBER:size RPARENR SEMI {: System.out.println("var_declaration -> type_specifier id (number); \n");
-																					RESULT = TreeNode.createArrayVariableDeclaration(ts, "" + id_val, size);:}
+																					RESULT = TreeNode.createArrayVariableDeclaration(symbolTable, ts, "" + id_val, size);:}
 			      ;
 
 type_specifier ::= INT 		{: System.out.println("type_specifier -> int \n");
@@ -278,7 +279,7 @@ arg_list ::= arg_list:a COLON expression:e		{: System.out.println("arg_list -> a
 													a.addChild(e);
 													RESULT = a; :} 
 		   | expression:e						{: System.out.println("arg_list -> expression \n");
-													RESULT = e; :}
+													RESULT = TreeNode.createArgList(e); :}
 		   ;
 
 

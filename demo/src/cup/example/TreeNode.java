@@ -55,11 +55,6 @@ public class TreeNode {
 		return createdNode;
 	}
 	
-	public static TreeNode createDeclaration(TreeNode declarationNode, boolean isVariable) {
-		TreeNode createdNode = new TreeNode("Declaration", String.valueOf(isVariable));
-		createdNode.addChild(declarationNode);
-		return createdNode;
-	}
 	
 	public static TreeNode createVariableDeclaration(TreeNode typeSpecifierNode, String variableName) {
 		TreeNode createdNode = new TreeNode("VariableDeclaration", variableName);
@@ -185,6 +180,12 @@ public class TreeNode {
 	public static TreeNode createCall(String callName, TreeNode argsNode) {
 		TreeNode createdNode = new TreeNode("Call", callName);
 		createdNode.addChild(argsNode);
+		return createdNode;
+	}
+	
+	public static TreeNode createArgList(TreeNode expressionNode) {
+		TreeNode createdNode = new TreeNode("ArgList");
+		createdNode.addChild(expressionNode);
 		return createdNode;
 	}
 	
