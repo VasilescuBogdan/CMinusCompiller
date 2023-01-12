@@ -27,7 +27,12 @@ class Driver {
 		  
 		  Parser parser = new Parser();
 		  parser.parse();
+		  System.out.println();
+		  System.out.println();
 		  parser.getParseTree().print();
+		  System.out.println();
+		  System.out.println();
+		  parser.printSymbolTable();
 		  
 	}
 	

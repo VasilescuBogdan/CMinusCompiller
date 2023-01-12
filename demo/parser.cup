@@ -4,6 +4,7 @@
 
 package cup.example;
 
+import java.util.HashMap;
 import java_cup.runtime.*;
 import cup.example.Lexer;
 import java.io.IOException;
@@ -14,7 +15,15 @@ import java.io.FileInputStream;
 parser code {:
   protected Lexer lexer;
   private MultipathTree parseTree = new MultipathTree();
-  private SymbolTable symbolTable = new SymbolTable();
+  private HashMap<String, SymbolTableEntry> symbolTable = new HashMap<String ,SymbolTableEntry>();
+
+  public void printSymbolTable(){
+		
+		System.out.println("Name    Data Type    Symbol Type    Symbol Scope    Context");
+		for(SymbolTableEntry sym:symbolTable.values()){
+			System.out.println(sym.getSymbolName() + "   " + sym.getDataType() + "   " + sym.getSymbolType().name() + "   " + sym.getSymbolScope().name() + "   " + sym.getContextName());		
+		}
+  }
 
   public MultipathTree getParseTree(){
 	return parseTree;
@@ -108,9 +117,9 @@ declaration ::= var_declaration:vd		{: System.out.println( "declaration -> var_d
 			  ;
 
 var_declaration ::= type_specifier:ts ID:id_val SEMI 		{: System.out.println("var_declaration -> type_specifier id; \n");
-																RESULT = TreeNode.createVariableDeclaration(symbolTable, ts, "" + id_val);	:}
+																RESULT = TreeNode.createVariableDeclaration(ts, "" + id_val);	:}
 			      | type_specifier:ts ID:id_val LPARENR NUMBER:size RPARENR SEMI {: System.out.println("var_declaration -> type_specifier id (number); \n");
-																					RESULT = TreeNode.createArrayVariableDeclaration(symbolTable, ts, "" + id_val, size);:}
+																					RESULT = TreeNode.createArrayVariableDeclaration(ts, "" + id_val, size);:}
 			      ;
 
 type_specifier ::= INT 		{: System.out.println("type_specifier -> int \n");

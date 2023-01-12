@@ -5,6 +5,7 @@
 
 package cup.example;
 
+import java.util.HashMap;
 import java_cup.runtime.*;
 import cup.example.Lexer;
 import java.io.IOException;
@@ -309,7 +310,15 @@ public class Parser extends java_cup.runtime.lr_parser {
 
   protected Lexer lexer;
   private MultipathTree parseTree = new MultipathTree();
-  private SymbolTable symbolTable = new SymbolTable();
+  private HashMap<String, SymbolTableEntry> symbolTable = new HashMap<String ,SymbolTableEntry>();
+
+  public void printSymbolTable(){
+		
+		System.out.println("Name    Data Type    Symbol Type    Symbol Scope    Context");
+		for(SymbolTableEntry sym:symbolTable.values()){
+			System.out.println(sym.getSymbolName() + "   " + sym.getDataType() + "   " + sym.getSymbolType().name() + "   " + sym.getSymbolScope().name() + "   " + sym.getContextName());		
+		}
+  }
 
   public MultipathTree getParseTree(){
 	return parseTree;
@@ -447,7 +456,7 @@ class CUP$Parser$actions {
 		Object id_val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		//@@CUPDBG8
  System.out.println("var_declaration -> type_specifier id; \n");
-																RESULT = TreeNode.createVariableDeclaration(symbolTable, ts, "" + id_val);	
+																RESULT = TreeNode.createVariableDeclaration(ts, "" + id_val);	
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("var_declaration",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -467,7 +476,7 @@ class CUP$Parser$actions {
 		Integer size = (Integer)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		//@@CUPDBG9
  System.out.println("var_declaration -> type_specifier id (number); \n");
-																					RESULT = TreeNode.createArrayVariableDeclaration(symbolTable, ts, "" + id_val, size);
+																					RESULT = TreeNode.createArrayVariableDeclaration(ts, "" + id_val, size);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("var_declaration",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
